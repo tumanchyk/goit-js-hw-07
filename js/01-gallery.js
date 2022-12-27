@@ -24,22 +24,19 @@ position.innerHTML = string
 insertMarkup(galleryRef, result)
 
 
-
 function onGalleryItemClick (e) {
 e.preventDefault();
 if(!e.target.classList.contains('gallery__image')){
     return
 } 
 const modalImg = basicLightbox.create(` <img
-//     src="${e.target.dataset.source}"
-//     alt="${e.target.alt}"
-//   />`)
-modalImg.show()
-
-galleryRef.addEventListener('keydown', closeModalEscape)
+    src="${e.target.dataset.source}"
+    alt="${e.target.alt}"
+    >`)
+modalImg.show({onShow:  document.addEventListener('keydown', closeModalEscape)})
 function closeModalEscape(e){
     if(e.key === 'Escape'){
-        modalImg.close();
+        modalImg.close({onClose: document.removeEventListener('keydown', closeModalEscape)});
     }
 }
 }
